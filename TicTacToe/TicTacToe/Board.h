@@ -13,6 +13,8 @@ public:
 	Board(int dim, int combo);
 	std::vector<std::vector<char>> GetBoard() const;
 	void SetBoard(std::vector<std::vector<char>> board);
+	int GetDim() const;
+	int GetCombo() const;
 	void PrintBoard() const;
 
 };

@@ -23,6 +23,16 @@ void Board::SetBoard(std::vector<std::vector<char>> board)
 	m_board = board;
 }
 
+int Board::GetDim() const
+{
+	return m_dim;
+}
+
+int Board::GetCombo() const
+{
+	return m_combo;
+}
+
 void Board::PrintBoard() const
 {
 	for (int index1 = 0; index1 < m_dim; ++index1)
