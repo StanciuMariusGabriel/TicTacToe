@@ -2,59 +2,32 @@
 #include <iostream>
 
 GameLogic::GameLogic(int dim, int combo)
+	:m_combo(combo)
 {
-	m_gameBoard = Board(dim, combo);
+	m_gameBoard = Board(dim);
 	m_playerTurn = false;
 	m_playerWin = 0;
 }
 
-void GameLogic::StartGame()
+int GameLogic::GameUpdate(int index1, int index2)
 {
-	m_gameBoard.PrintBoard();
-	while (m_playerWin == 0)
-	{
+	std::vector<std::vector<char>> board = m_gameBoard.GetBoard();
+
+	if (!m_playerTurn)
+		board[index1][index2] = 'X';
+	else
+		board[index1][index2] = '0';
+
+	m_gameBoard.SetBoard(board);
+
+	if (CheckPlayerWin(index1, index2, board))
 		if (!m_playerTurn)
-			std::cout << std::endl << "Player X" << std::endl;
+			m_playerWin = 1;
 		else
-			std::cout << std::endl << "Player 0" << std::endl;
+			m_playerWin = 2;
+	m_playerTurn = !m_playerTurn;
 
-		std::vector<std::vector<char>> board = m_gameBoard.GetBoard();
-
-		int index1, index2;
-		std::cout << "Row: ";
-		std::cin >> index1;
-		std::cout << "Column: ";
-		std::cin >> index2;
-		while (index1 < 0 || index1 >= board.size() || index2 < 0 || index2 >= board.size() || board[index1][index2] != '-')
-		{
-			std::cout << "Place already used or out of bounds, choose another one" << std::endl;
-			std::cout << "Row: ";
-			std::cin >> index1;
-			std::cout << "Column: ";
-			std::cin >> index2;
-		}
-
-		if (!m_playerTurn)
-			board[index1][index2] = 'X';
-		else
-			board[index1][index2] = '0';
-
-		m_gameBoard.SetBoard(board);
-		m_gameBoard.PrintBoard();
-
-		if (CheckPlayerWin(index1, index2, board))
-			if (!m_playerTurn)
-			{
-				std::cout << std::endl << "Player X Wins" << std::endl;
-				m_playerWin = 1;
-			}
-			else
-			{
-				std::cout << std::endl << "Player 0 Wins" << std::endl;
-				m_playerWin = 2;
-			}
-		m_playerTurn = !m_playerTurn;
-	}
+	return m_playerWin;
 }
 
 bool GameLogic::CheckPlayerWin(int index1, int index2, std::vector<std::vector<char>> board)
@@ -79,7 +52,7 @@ bool GameLogic::CheckPlayerWin(int index1, int index2, std::vector<std::vector<c
 				col_index = index2;
 				if (dir % 2 == 0)
 				{
-					if (combo >= m_gameBoard.GetCombo())
+					if (combo >= m_combo)
 						return true;
 					else
 						combo = 1;
@@ -93,7 +66,7 @@ bool GameLogic::CheckPlayerWin(int index1, int index2, std::vector<std::vector<c
 			col_index = index2;
 			if (dir % 2 == 0)
 			{
-				if (combo >= m_gameBoard.GetCombo())
+				if (combo >= m_combo)
 					return true;
 				else
 					combo = 1;
@@ -134,4 +107,34 @@ bool GameLogic::CheckPlayerWin(int index1, int index2, std::vector<std::vector<c
 		}
 	}
 	return false;
+}
+
+bool GameLogic::GetPlayerTurn() const
+{
+	return m_playerTurn;
+}
+
+int GameLogic::GetSize() const
+{
+	return m_gameBoard.GetBoardSize();
+}
+
+void GameLogic::PrintGameBoard() const
+{
+	m_gameBoard.PrintBoard();
+}
+
+bool GameLogic::CheckPositionFill(int index1, int index2)
+{
+	return m_gameBoard.GetBoard()[index1][index2] != '-';
+}
+
+bool GameLogic::CheckAllFilled()
+{
+	std::vector<std::vector<char>> board = m_gameBoard.GetBoard();
+	for (int index1 = 0; index1 < GetSize(); ++index1)
+		for (int index2 = 0; index2 < GetSize(); ++index2)
+			if (board[index1][index2] == '-')
+				return false;
+	return true;
 }

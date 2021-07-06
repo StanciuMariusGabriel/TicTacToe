@@ -1,11 +1,11 @@
 #include <iostream>
-#include "GameLogic.h"
+#include "Game.h"
 
 int main()
 {
 	int dim, combo;
-	dim = 5;
+	dim = 3;
 	combo = 3;
-	GameLogic game = GameLogic(dim, combo);
-	game.StartGame();
+	Game game = Game(dim, combo);
+	game.RunGame();
 }

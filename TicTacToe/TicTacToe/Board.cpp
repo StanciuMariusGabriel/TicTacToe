@@ -1,13 +1,12 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board(int dim, int combo)
-	:m_dim(dim), m_combo(combo)
+Board::Board(int dim)
 {
-	for (int index1 = 0; index1 < m_dim; ++index1)
+	for (int index1 = 0; index1 < dim; ++index1)
 	{
 		std::vector<char> row;
-		for (int index2 = 0; index2 < m_dim; ++index2)
+		for (int index2 = 0; index2 < dim; ++index2)
 			row.push_back('-');
 		m_board.push_back(row);
 	}
@@ -23,24 +22,19 @@ void Board::SetBoard(std::vector<std::vector<char>> board)
 	m_board = board;
 }
 
-int Board::GetDim() const
-{
-	return m_dim;
-}
-
-int Board::GetCombo() const
-{
-	return m_combo;
-}
-
 void Board::PrintBoard() const
 {
-	for (int index1 = 0; index1 < m_dim; ++index1)
+	for (int index1 = 0; index1 < m_board.size(); ++index1)
 	{
-		for (int index2 = 0; index2 < m_dim; ++index2)
+		for (int index2 = 0; index2 < m_board.size(); ++index2)
 			std::cout << " " << m_board[index1][index2] << " ";
 		std::cout << std::endl;
 	}
+}
+
+int Board::GetBoardSize() const
+{
+	return m_board.size();
 }
 
 
