@@ -1,4 +1,6 @@
 #include "Game.h"
+#include <string>
+#include <regex>
 
 Game::Game(int dim, int combo)
 {
@@ -20,6 +22,11 @@ void Game::RunGame()
 			std::cout << std::endl << "Player 0" << std::endl;
 
 		int index1, index2;
+
+		/*std::string index1, index2;
+		static const std::regex int_re("^\\s*([+-]?[1-9]\\d{0, 10}|0)\\s*$");
+		return std::regex_match(index1, int_re);*/
+
 		std::cout << "Row: ";
 		std::cin >> index1;
 		std::cout << "Column: ";
@@ -33,7 +40,7 @@ void Game::RunGame()
 			std::cin >> index2;
 		}
 
-		playerWin = m_gameLogic.GameUpdate(index1, index2);
+		playerWin = m_gameLogic.GameMoveUpdate(index1, index2);
 		m_gameLogic.PrintGameBoard();
 	}
 	WinnerMessage(playerWin);

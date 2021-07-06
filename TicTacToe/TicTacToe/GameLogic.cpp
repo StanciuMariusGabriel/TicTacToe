@@ -9,7 +9,7 @@ GameLogic::GameLogic(int dim, int combo)
 	m_playerWin = 0;
 }
 
-int GameLogic::GameUpdate(int index1, int index2)
+int GameLogic::GameMoveUpdate(int index1, int index2)
 {
 	std::vector<std::vector<char>> board = m_gameBoard.GetBoard();
 

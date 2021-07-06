@@ -11,7 +11,7 @@ private:
 public:
 	GameLogic() = default;
 	GameLogic(int dim, int combo);
-	int GameUpdate(int index1, int index2);
+	int GameMoveUpdate(int index1, int index2);
 	bool CheckPlayerWin(int index1, int index2, std::vector<std::vector<char>> board);
 	bool GetPlayerTurn() const;
 	int GetSize() const;
