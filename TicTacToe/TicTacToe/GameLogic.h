@@ -1,21 +1,31 @@
 #pragma once
 #include "Board.h"
 
+
+enum EGameState
+{
+	DRAW,
+	PLAYER1_WIN,
+	PLAYER2_WIN
+};
+
 class GameLogic
 {
+public:
+	GameLogic(int dim, int combo);
+
+	int GetBoardSize() const;
+	char GetElementAt(int index1, int index2) const;
+	bool GetPlayerTurn() const;
+	
+	EGameState MakeMove(int index1, int index2);
+	bool IsPositionFilled(int index1, int index2) const;
+	bool IsBoardFull() const;
+
 private:
 	Board m_gameBoard;
+
 	bool m_playerTurn;
-	int m_playerWin;
+	EGameState m_gameState;
 	int m_combo;
-public:
-	GameLogic() = default;
-	GameLogic(int dim, int combo);
-	int GameMoveUpdate(int index1, int index2);
-	bool CheckPlayerWin(int index1, int index2, std::vector<std::vector<char>> board);
-	bool GetPlayerTurn() const;
-	int GetSize() const;
-	void PrintGameBoard() const;
-	bool CheckPositionFill(int index1, int index2);
-	bool CheckAllFilled();
 };

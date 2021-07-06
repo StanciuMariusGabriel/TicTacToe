@@ -1,62 +1,70 @@
 #include "Game.h"
-#include <string>
-#include <regex>
 
 Game::Game(int dim, int combo)
+	: m_gameLogic(dim, combo)
 {
-	m_gameLogic = GameLogic(dim, combo);
+
+}
+
+void Game::PrintGameBoard() const
+{
+	for (int index1 = 0; index1 < m_gameLogic.GetBoardSize(); ++index1)
+	{
+		for (int index2 = 0; index2 < m_gameLogic.GetBoardSize(); ++index2)
+			std::cout << " " << m_gameLogic.GetElementAt(index1, index2) << " ";
+		std::cout << std::endl;
+	}
 }
 
 void Game::RunGame()
 {
-	m_gameLogic.PrintGameBoard();
-	int playerWin = 0;
-	while (playerWin == 0)
+	PrintGameBoard();
+
+	EGameState gameState = EGameState::DRAW;
+	
+	while (gameState == 0)
 	{
-		if (m_gameLogic.CheckAllFilled())
+		if (m_gameLogic.IsBoardFull())
 			break;
 
 		if (!m_gameLogic.GetPlayerTurn())
-			std::cout << std::endl << "Player X" << std::endl;
+			std::cout << std::endl << "Player X" << "\n\n";
 		else
-			std::cout << std::endl << "Player 0" << std::endl;
+			std::cout << std::endl << "Player 0" << "\n\n";
 
 		int index1, index2;
-
-		/*std::string index1, index2;
-		static const std::regex int_re("^\\s*([+-]?[1-9]\\d{0, 10}|0)\\s*$");
-		return std::regex_match(index1, int_re);*/
 
 		std::cout << "Row: ";
 		std::cin >> index1;
 		std::cout << "Column: ";
 		std::cin >> index2;
-		while (index1 < 0 || index1 >= m_gameLogic.GetSize() || index2 < 0 || index2 >= m_gameLogic.GetSize() || m_gameLogic.CheckPositionFill(index1, index2))
+		std::cout << std::endl;
+		while (index1 < 0 || index1 >= m_gameLogic.GetBoardSize() || index2 < 0 || index2 >= m_gameLogic.GetBoardSize() || m_gameLogic.IsPositionFilled(index1, index2))
 		{
-			std::cout << "Place already used or out of bounds, choose another one" << std::endl;
+			std::cout << std::endl << "Place already used or out of bounds, choose another one" << "\n\n";
 			std::cout << "Row: ";
 			std::cin >> index1;
 			std::cout << "Column: ";
 			std::cin >> index2;
 		}
 
-		playerWin = m_gameLogic.GameMoveUpdate(index1, index2);
-		m_gameLogic.PrintGameBoard();
+		gameState = m_gameLogic.MakeMove(index1, index2);
+		PrintGameBoard();
 	}
-	WinnerMessage(playerWin);
+	WinnerMessage(gameState);
 }
 
 void Game::WinnerMessage(int playerWin)
 {
 	switch (playerWin)
 	{
-	case 0:
+	case EGameState::DRAW:
 		std::cout << std::endl << "No winner!" << std::endl;
 		break;
-	case 1:
+	case EGameState::PLAYER1_WIN:
 		std::cout << std::endl << "Player X wins!" << std::endl;
 		break;
-	case 2:
+	case EGameState::PLAYER2_WIN:
 		std::cout << std::endl << "Player 0 wins!" << std::endl;
 		break;
 	}

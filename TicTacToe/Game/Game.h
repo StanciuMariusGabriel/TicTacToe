@@ -10,6 +10,9 @@ private:
 public:
 	Game() = default;
 	Game(int dim, int combo);
+
+	void PrintGameBoard() const;
 	void RunGame();
 	void WinnerMessage(int playerWin);
+
 };
