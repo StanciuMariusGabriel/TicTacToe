@@ -13,12 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\API">
+      <UniqueIdentifier>{a9b182f5-1c63-42b9-b5b8-8c3b3feb4161}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameAPI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -37,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="HardStrategy.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="API\GameAPI.h">
+      <Filter>Header Files\API</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

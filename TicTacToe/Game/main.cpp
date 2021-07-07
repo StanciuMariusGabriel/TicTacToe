@@ -1,6 +1,8 @@
 #include <iostream>
+
 #include "Game.h"
 
+using namespace tictactoe;
 int main()
 {
 	int dim, combo;

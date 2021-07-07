@@ -1,31 +1,29 @@
 #pragma once
 #include "Board.h"
+#include "API/GameAPI.h"
 
-
-enum EGameState
+namespace tictactoe
 {
-	DRAW,
-	PLAYER1_WIN,
-	PLAYER2_WIN
-};
+	class GameLogic : public IGame
+	{
+	public:
+		GameLogic(int dim, int combo);
 
-class GameLogic
-{
-public:
-	GameLogic(int dim, int combo);
+		int GetBoardSize() const;
+		char GetElementAt(int index1, int index2) const;
+		int GetActivePlayer() const;
 
-	int GetBoardSize() const;
-	char GetElementAt(int index1, int index2) const;
-	bool GetPlayerTurn() const;
-	
-	EGameState MakeMove(int index1, int index2);
-	bool IsPositionFilled(int index1, int index2) const;
-	bool IsBoardFull() const;
+		EMoveResult MakeMove(int index1, int index2);
+		EGameState GetState() const;
 
-private:
-	Board m_gameBoard;
+	private:
+		Board m_gameBoard;
+		int m_activePlayer;
+		EGameState m_gameState;
+		int m_combo;
 
-	bool m_playerTurn;
-	EGameState m_gameState;
-	int m_combo;
-};
+		void UpdateState(int index1, int index2, int m_combo);
+		bool IsPositionFilled(int index1, int index2) const;
+		bool IsBoardFull() const;
+	};
+}
