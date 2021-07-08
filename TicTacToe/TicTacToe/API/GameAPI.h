@@ -43,13 +43,17 @@ namespace tictactoe
 		virtual int GetBoardSize() const = 0;
 		virtual char GetElementAt(int index1, int index2) const = 0;
 		virtual int GetActivePlayer() const = 0;
+		virtual bool IsSinglePlayer() const = 0;
+
+		virtual void SetSinglePlayer(int userPlayerNumber) = 0;
+		virtual void SetMultiPlayer() = 0;
 
 		virtual EMoveResult MakeMove(int index1, int index2) = 0;
 		virtual void MakeComputerMove() = 0;
 		virtual EGameState GetState() const = 0;
 
-		virtual void SetStrategy(EStrategy strategyType) = 0;
-		virtual void SetStrategy(std::shared_ptr<IStrategy> newStrategy) = 0;
+		virtual void SetComputerStrategy(EStrategy strategyType) = 0;
+		virtual void SetComputerStrategy(std::shared_ptr<IStrategy> newStrategy) = 0;
 
 		virtual void Reset() = 0;
 

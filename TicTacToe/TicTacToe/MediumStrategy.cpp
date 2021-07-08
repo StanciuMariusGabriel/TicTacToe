@@ -46,9 +46,6 @@ void MediumStrategy::GetPositions(const Board& gameBoard, std::vector<std::pair<
 
 	while (dir != 8)
 	{
-
-
-
 		if (row_index >= 0 && row_index < gameBoard.GetBoardSize() && col_index >= 0 && col_index < gameBoard.GetBoardSize())
 		{
 			if (gameBoard.GetElementAt(row_index, col_index) == gameBoard.GetElementAt(index1, index2))

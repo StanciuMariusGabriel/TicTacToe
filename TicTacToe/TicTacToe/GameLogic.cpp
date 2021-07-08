@@ -8,6 +8,8 @@ GameLogic::GameLogic(int dim, int combo)
 	, m_gameBoard(dim)
 	, m_activePlayer(1)
 	, m_gameState(EGameState::Playing)
+	, m_singlePlayer(false)
+	, m_userPlayerNumber(1)
 { }
 
 EMoveResult GameLogic::MakeMove(int index1, int index2)
@@ -30,6 +32,22 @@ EMoveResult GameLogic::MakeMove(int index1, int index2)
 	return EMoveResult::Success;
 }
 
+bool tictactoe::GameLogic::IsSinglePlayer() const
+{
+	return m_singlePlayer;
+}
+
+void tictactoe::GameLogic::SetSinglePlayer(int userPlayerNumber)
+{
+	m_singlePlayer = true;
+	m_userPlayerNumber = userPlayerNumber;
+}
+
+void tictactoe::GameLogic::SetMultiPlayer()
+{
+	m_singlePlayer = false;
+}
+
 void tictactoe::GameLogic::MakeComputerMove()
 {
 	std::pair<int, int> move = m_computerStrategy->ComputerMove(m_gameBoard, m_activePlayer, m_combo);
@@ -49,7 +67,7 @@ EGameState tictactoe::GameLogic::GetState() const
 	return m_gameState;
 }
 
-void tictactoe::GameLogic::SetStrategy(EStrategy strategyType)
+void tictactoe::GameLogic::SetComputerStrategy(EStrategy strategyType)
 {
 	switch (strategyType)
 	{
@@ -64,7 +82,7 @@ void tictactoe::GameLogic::SetStrategy(EStrategy strategyType)
 	}
 }
 
-void tictactoe::GameLogic::SetStrategy(std::shared_ptr<IStrategy> newStrategy)
+void tictactoe::GameLogic::SetComputerStrategy(std::shared_ptr<IStrategy> newStrategy)
 {
 	m_computerStrategy = newStrategy;
 }

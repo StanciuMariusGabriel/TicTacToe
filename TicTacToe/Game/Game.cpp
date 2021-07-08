@@ -23,7 +23,7 @@ void Game::RunGame()
 	PrintGameBoard();
 
 	EGameState gameState = m_gameLogic->GetState();
-	m_gameLogic->SetStrategy(EStrategy::Medium);
+	m_gameLogic->SetComputerStrategy(EStrategy::Medium);
 	EMoveResult moveResult;
 	
 	while (gameState == EGameState::Playing)
