@@ -1,5 +1,7 @@
 #pragma once
 #include "Board.h"
+#include "EasyStrategy.h";
+#include "MediumStrategy.h"
 #include "API/GameAPI.h"
 
 namespace tictactoe
@@ -14,9 +16,16 @@ namespace tictactoe
 		int GetActivePlayer() const;
 
 		EMoveResult MakeMove(int index1, int index2);
+		void MakeComputerMove();
 		EGameState GetState() const;
 
+		void SetStrategy(EStrategy strategyType) override;
+		void SetStrategy(std::shared_ptr<IStrategy> newStrategy) override;
+
+		void Reset();
+
 	private:
+		std::shared_ptr<IStrategy> m_computerStrategy;
 		Board m_gameBoard;
 		int m_activePlayer;
 		EGameState m_gameState;

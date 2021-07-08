@@ -27,6 +27,12 @@
     <ClCompile Include="GameAPI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EasyStrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MediumStrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -35,13 +41,10 @@
     <ClInclude Include="GameLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Strategy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EasyStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HardStrategy.h">
+    <ClInclude Include="MediumStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="API\GameAPI.h">

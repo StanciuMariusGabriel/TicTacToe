@@ -30,9 +30,50 @@ EMoveResult GameLogic::MakeMove(int index1, int index2)
 	return EMoveResult::Success;
 }
 
+void tictactoe::GameLogic::MakeComputerMove()
+{
+	std::pair<int, int> move = m_computerStrategy->ComputerMove(m_gameBoard, m_activePlayer, m_combo);
+
+	if (m_activePlayer == 1)
+		m_gameBoard.SetElementAt('X', move.first, move.second);
+	else
+		m_gameBoard.SetElementAt('0', move.first, move.second);
+
+	UpdateState(move.first, move.second, m_combo);
+
+	m_activePlayer = 3 - m_activePlayer;
+}
+
 EGameState tictactoe::GameLogic::GetState() const
 {
 	return m_gameState;
+}
+
+void tictactoe::GameLogic::SetStrategy(EStrategy strategyType)
+{
+	switch (strategyType)
+	{
+	case EStrategy::Easy:
+		m_computerStrategy = std::make_shared<EasyStrategy>();
+		break;
+	case EStrategy::Medium:
+		m_computerStrategy = std::make_shared<MediumStrategy>();
+		break;
+	default:
+		break;
+	}
+}
+
+void tictactoe::GameLogic::SetStrategy(std::shared_ptr<IStrategy> newStrategy)
+{
+	m_computerStrategy = newStrategy;
+}
+
+void tictactoe::GameLogic::Reset()
+{
+	for (int index1 = 0; index1 < GetBoardSize(); ++index1)
+		for (int index2 = 0; index2 < GetBoardSize(); ++index2)
+			m_gameBoard.SetElementAt('-', index1, index2);
 }
 
 void tictactoe::GameLogic::UpdateState(int index1, int index2, int m_combo)

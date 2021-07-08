@@ -23,6 +23,7 @@ void Game::RunGame()
 	PrintGameBoard();
 
 	EGameState gameState = m_gameLogic->GetState();
+	m_gameLogic->SetStrategy(EStrategy::Medium);
 	EMoveResult moveResult;
 	
 	while (gameState == EGameState::Playing)
@@ -34,20 +35,26 @@ void Game::RunGame()
 
 		int index1, index2;
 
-		std::cout << "Row: ";
-		std::cin >> index1;
-		std::cout << "Column: ";
-		std::cin >> index2;
-		std::cout << std::endl;
-
-		moveResult = m_gameLogic->MakeMove(index1, index2);
-		while (moveResult != EMoveResult::Success)
-		{
-			std::cout << std::endl << "Place already used or out of bounds, choose another one" << "\n\n";
+		if (m_gameLogic->GetActivePlayer() == 1) {
 			std::cout << "Row: ";
 			std::cin >> index1;
 			std::cout << "Column: ";
 			std::cin >> index2;
+			std::cout << std::endl;
+			moveResult = m_gameLogic->MakeMove(index1, index2);
+			while (moveResult != EMoveResult::Success)
+			{
+				std::cout << std::endl << "Place already used or out of bounds, choose another one" << "\n\n";
+				std::cout << "Row: ";
+				std::cin >> index1;
+				std::cout << "Column: ";
+				std::cin >> index2;
+				moveResult = m_gameLogic->MakeMove(index1, index2);
+			}
+		}
+		else
+		{
+			m_gameLogic->MakeComputerMove();
 		}
 
 		gameState = m_gameLogic->GetState();	

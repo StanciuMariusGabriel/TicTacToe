@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "Board.h"
 
 namespace tictactoe
 {
@@ -18,6 +19,20 @@ namespace tictactoe
 		Invalid
 	};
 
+	enum class EStrategy
+	{
+		Easy,
+		Medium
+	};
+
+	class IStrategy
+	{
+	public:
+		virtual ~IStrategy() = default;
+
+		virtual std::pair<int, int> ComputerMove(const Board& gameBoard, int player, int combo) = 0;
+	};
+
 	class IGame
 	{
 	public:
@@ -30,7 +45,13 @@ namespace tictactoe
 		virtual int GetActivePlayer() const = 0;
 
 		virtual EMoveResult MakeMove(int index1, int index2) = 0;
+		virtual void MakeComputerMove() = 0;
 		virtual EGameState GetState() const = 0;
+
+		virtual void SetStrategy(EStrategy strategyType) = 0;
+		virtual void SetStrategy(std::shared_ptr<IStrategy> newStrategy) = 0;
+
+		virtual void Reset() = 0;
 
 		static IGame::Game Produce(int dim, int combo);
 	};

@@ -73,22 +73,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\BUILD_WIN\$(SolutionName)\Lib\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\BUILD_WIN\$(SolutionName)\Obj\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>..\BUILD_WIN\$(SolutionName)\Obj\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\BUILD_WIN\$(SolutionName)\Lib\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\BUILD_WIN\$(SolutionName)\Obj\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>..\BUILD_WIN\$(SolutionName)\Obj\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\BUILD_WIN\$(SolutionName)\Lib\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\BUILD_WIN\$(SolutionName)\Obj\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>..\BUILD_WIN\$(SolutionName)\Obj\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\BUILD_WIN\$(SolutionName)\Lib\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>..\BUILD_WIN\$(SolutionName)\Obj\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir>..\BUILD_WIN\$(SolutionName)\Obj\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -148,16 +148,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="EasyStrategy.cpp" />
     <ClCompile Include="GameAPI.cpp" />
     <ClCompile Include="GameLogic.cpp" />
+    <ClCompile Include="MediumStrategy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="API\GameAPI.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="EasyStrategy.h" />
     <ClInclude Include="GameLogic.h" />
-    <ClInclude Include="HardStrategy.h" />
-    <ClInclude Include="Strategy.h" />
+    <ClInclude Include="MediumStrategy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

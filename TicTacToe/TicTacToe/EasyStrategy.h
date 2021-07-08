@@ -1,10 +1,9 @@
 #pragma once
-#include "Strategy.h"
+#include "API/GameAPI.h"
+#include "GameLogic.h"
 
-class EasyStrategy : public Strategy
+class EasyStrategy : public tictactoe::IStrategy
 {
-private:
-
 public:
-	void ComputerMove();
+	std::pair<int, int> ComputerMove(const Board &gameBoard, int player, int combo);
 };
