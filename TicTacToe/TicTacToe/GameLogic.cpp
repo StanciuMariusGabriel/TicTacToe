@@ -30,7 +30,7 @@ EMoveResult GameLogic::MakeMove(int index1, int index2)
 
 	m_activePlayer = 3 - m_activePlayer;
 
-	if (m_singlePlayer)
+	if (m_singlePlayer && m_gameState == EGameState::Playing)
 		MakeComputerMove();
 
 	return EMoveResult::Success;
@@ -71,6 +71,7 @@ void tictactoe::GameLogic::MakeComputerMove()
 	UpdateState(move.first, move.second, m_combo);
 
 	m_activePlayer = 3 - m_activePlayer;
+
 }
 
 EGameState tictactoe::GameLogic::GetState() const

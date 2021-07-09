@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Blabla.cpp" />
     <ClCompile Include="GameAPITest.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
