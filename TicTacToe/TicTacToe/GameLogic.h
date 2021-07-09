@@ -14,13 +14,14 @@ namespace tictactoe
 		int GetBoardSize() const;
 		char GetElementAt(int index1, int index2) const;
 		int GetActivePlayer() const;
+		int GetSinglePlayerUserNumber() const;
 		bool IsSinglePlayer() const;
 
 		void SetSinglePlayer(int userPlayerNumber);
 		void SetMultiPlayer();
 
 		EMoveResult MakeMove(int index1, int index2);
-		void MakeComputerMove();
+		//void MakeComputerMove();
 		EGameState GetState() const;
 
 		void SetComputerStrategy(EStrategy strategyType) override;
@@ -38,6 +39,8 @@ namespace tictactoe
 		int m_combo;
 
 		void UpdateState(int index1, int index2, int m_combo);
+		void MakeComputerMove();
+
 		bool IsPositionFilled(int index1, int index2) const;
 		bool IsBoardFull() const;
 	};

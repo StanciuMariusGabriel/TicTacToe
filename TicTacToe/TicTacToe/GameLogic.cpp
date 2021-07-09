@@ -10,6 +10,7 @@ GameLogic::GameLogic(int dim, int combo)
 	, m_gameState(EGameState::Playing)
 	, m_singlePlayer(false)
 	, m_userPlayerNumber(1)
+	, m_computerStrategy(std::make_shared<EasyStrategy>())
 { }
 
 EMoveResult GameLogic::MakeMove(int index1, int index2)
@@ -29,7 +30,15 @@ EMoveResult GameLogic::MakeMove(int index1, int index2)
 
 	m_activePlayer = 3 - m_activePlayer;
 
+	if (m_singlePlayer)
+		MakeComputerMove();
+
 	return EMoveResult::Success;
+}
+
+int tictactoe::GameLogic::GetSinglePlayerUserNumber() const
+{
+	return m_userPlayerNumber;
 }
 
 bool tictactoe::GameLogic::IsSinglePlayer() const
@@ -41,6 +50,8 @@ void tictactoe::GameLogic::SetSinglePlayer(int userPlayerNumber)
 {
 	m_singlePlayer = true;
 	m_userPlayerNumber = userPlayerNumber;
+	if (userPlayerNumber == 2)
+		MakeComputerMove();
 }
 
 void tictactoe::GameLogic::SetMultiPlayer()

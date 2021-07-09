@@ -20,12 +20,13 @@ void Game::PrintGameBoard() const
 
 void Game::RunGame()
 {
+	EGameState gameState = m_gameLogic->GetState();
+	m_gameLogic->SetSinglePlayer(1);
+	//m_gameLogic->SetComputerStrategy(EStrategy::Medium);
+	EMoveResult moveResult;
+
 	PrintGameBoard();
 
-	EGameState gameState = m_gameLogic->GetState();
-	m_gameLogic->SetComputerStrategy(EStrategy::Medium);
-	EMoveResult moveResult;
-	
 	while (gameState == EGameState::Playing)
 	{
 		if (m_gameLogic->GetActivePlayer() == 1)
@@ -35,29 +36,25 @@ void Game::RunGame()
 
 		int index1, index2;
 
-		if (m_gameLogic->GetActivePlayer() == 1) {
+
+		std::cout << "Row: ";
+		std::cin >> index1;
+		std::cout << "Column: ";
+		std::cin >> index2;
+		std::cout << std::endl;
+		moveResult = m_gameLogic->MakeMove(index1, index2);
+		while (moveResult != EMoveResult::Success)
+		{
+			std::cout << std::endl << "Place already used or out of bounds, choose another one" << "\n\n";
 			std::cout << "Row: ";
 			std::cin >> index1;
 			std::cout << "Column: ";
 			std::cin >> index2;
-			std::cout << std::endl;
 			moveResult = m_gameLogic->MakeMove(index1, index2);
-			while (moveResult != EMoveResult::Success)
-			{
-				std::cout << std::endl << "Place already used or out of bounds, choose another one" << "\n\n";
-				std::cout << "Row: ";
-				std::cin >> index1;
-				std::cout << "Column: ";
-				std::cin >> index2;
-				moveResult = m_gameLogic->MakeMove(index1, index2);
-			}
-		}
-		else
-		{
-			m_gameLogic->MakeComputerMove();
 		}
 
-		gameState = m_gameLogic->GetState();	
+
+		gameState = m_gameLogic->GetState();
 		PrintGameBoard();
 	}
 	WinnerMessage(gameState);

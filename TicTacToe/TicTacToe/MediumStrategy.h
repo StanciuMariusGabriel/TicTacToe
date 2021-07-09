@@ -8,5 +8,5 @@ public:
 	std::pair<int, int> ComputerMove(const Board& gameBoard, int player, int combo);
 
 private:
-	void GetPositions(const Board& gameBoard, std::vector<std::pair<int, int>> &dangerousPositions, int combo, int index1, int index2);
+	void GetPositions(const Board& gameBoard, std::vector<std::pair<int, int>> &dangerousPositions, int combo, char symbol, int index1, int index2);
 };

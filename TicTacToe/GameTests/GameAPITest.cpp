@@ -71,6 +71,44 @@ protected:
 	IGame::Game GameDraw;
 };
 
+class TestEasyStrategy : public::testing::Test
+{
+public:
+	void SetUp()
+	{
+		Game = IGame::Produce(5, 4);
+		Game->SetSinglePlayer(1);
+	}
+
+protected:
+	IGame::Game Game;
+};
+
+class TestMediumStrategy : public::testing::Test
+{
+public:
+	void SetUp()
+	{
+		Game1 = IGame::Produce(5, 3);
+		Game1->MakeMove(1, 1);
+		Game1->MakeMove(2, 0);
+		Game1->SetComputerStrategy(EStrategy::Medium);
+		Game1->SetSinglePlayer(1);
+
+		Game2 = IGame::Produce(5, 3);
+		Game2->MakeMove(1, 1);
+		Game2->MakeMove(0, 0);
+		Game2->MakeMove(4, 4);
+		Game2->MakeMove(3, 3);
+		Game2->SetComputerStrategy(EStrategy::Medium);
+		Game2->SetSinglePlayer(1);
+	}
+
+protected:
+	IGame::Game Game1;
+	IGame::Game Game2;
+};
+
 TEST_F(GameStates, InitializationBoardTest)
 {
 	int count = 0;
@@ -193,3 +231,70 @@ TEST_F(TestWinConditions, DrawTest)
 	GameDraw->MakeMove(2, 1);
 	ASSERT_EQ(EGameState::Draw, GameDraw->GetState());
 }
+
+TEST_F(TestEasyStrategy, ComputerRandomMoveTest)
+{
+	int count = 0;
+
+	Game->MakeMove(0, 3);
+	for (int index = 0; index < Game->GetBoardSize(); ++index)
+		if (Game->GetElementAt(2, index) == '-')
+		{
+			Game->MakeMove(2, index);
+			break;
+		}
+	for (int index = 0; index < Game->GetBoardSize(); ++index)
+		if (Game->GetElementAt(3, index) == '-')
+		{
+			Game->MakeMove(3, index);
+			break;
+		}
+	for (int index = 0; index < Game->GetBoardSize(); ++index)
+		if (Game->GetElementAt(4, index) == '-')
+		{
+			Game->MakeMove(4, index);
+			break;
+		}
+	for (int index1 = 0; index1 < Game->GetBoardSize(); ++index1)
+		for (int index2 = 0; index2 < Game->GetBoardSize(); ++index2)
+			if (Game->GetElementAt(index1, index2) == '0')
+				++count;
+	ASSERT_EQ(count, 4);
+}
+
+TEST_F(TestEasyStrategy, TestSinglePlayerSet)
+{
+	ASSERT_TRUE(Game->IsSinglePlayer());
+	ASSERT_EQ(Game->GetSinglePlayerUserNumber(), 1);
+}
+
+TEST_F(TestEasyStrategy, TestMultiPlayerSet)
+{
+	Game->SetMultiPlayer();
+	ASSERT_TRUE(!Game->IsSinglePlayer());
+}
+
+TEST_F(TestMediumStrategy, TestMediumStrategyDiagonals)
+{
+	Game1->MakeMove(2, 2);
+	Game1->MakeMove(1, 3);
+	Game1->MakeMove(4, 0);
+	Game1->MakeMove(4, 4);
+	ASSERT_TRUE(Game1->GetElementAt(0, 0) == '0');
+	ASSERT_TRUE(Game1->GetElementAt(0, 4) == '0');
+	ASSERT_TRUE(Game1->GetElementAt(3, 1) == '0');
+	ASSERT_TRUE(Game1->GetElementAt(3, 3) == '0');
+}
+
+TEST_F(TestMediumStrategy, TestMediumStrategyStraightLines)
+{
+	Game2->MakeMove(2, 1);
+	Game2->MakeMove(2, 2);
+	Game2->MakeMove(4, 0);
+	Game2->MakeMove(0, 4);
+	ASSERT_TRUE(Game2->GetElementAt(0, 1) == '0');
+	ASSERT_TRUE(Game2->GetElementAt(2, 0) == '0');
+	ASSERT_TRUE(Game2->GetElementAt(2, 3) == '0');
+	ASSERT_TRUE(Game2->GetElementAt(3, 1) == '0');
+}
+
